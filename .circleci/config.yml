@@ -1,0 +1,14 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: fliplet/eb-cli
+    steps:
+      - run:
+          name: EB CLI version
+          command: eb --version
+workflows:
+  version: 2
+  build_deploy:
+    jobs:
+      - build
