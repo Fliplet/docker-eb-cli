@@ -8,27 +8,15 @@
 # $ docker tag <tag> fliplet/eb-cli:<version>
 # $ docker login --username=fliplet --email=<email>
 # $ docker push fliplet/eb-cli:<version>
-FROM gliderlabs/alpine:3.6
+FROM fliplet/api:1.23
 LABEL maintainer="Fliplet <dev@fliplet.com>"
 
 ENV PAGER="more"
 
-RUN apk --no-cache add \
-      bash \
-      curl \
-      git \
-      jq \
-      groff \
-      py-pip \
-      python &&\
-    pip install --upgrade \
-      pip \
-      awscli \
-      awsebcli && \
-    mkdir ~/.aws
+RUN pip install awsebcli --upgrade
 
 # Expose volume for adding credentials
 VOLUME ["~/.aws"]
 
-ENTRYPOINT ["/usr/bin/eb"]
+ENTRYPOINT ["eb"]
 CMD ["--version"]
