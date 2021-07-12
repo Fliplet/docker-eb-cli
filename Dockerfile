@@ -8,7 +8,7 @@
 # $ docker tag <tag> fliplet/eb-cli:<version>
 # $ docker login --username=fliplet --email=<email>
 # $ docker push fliplet/eb-cli:<version>
-FROM fliplet/api:1.23
+FROM fliplet/api:1.49
 LABEL maintainer="Fliplet <dev@fliplet.com>"
 
 ENV PAGER="more"
@@ -16,7 +16,7 @@ ENV PAGER="more"
 RUN pip install awsebcli --upgrade
 
 # Expose volume for adding credentials
-VOLUME ["~/.aws"]
+RUN mkdir ~/.aws
 
 ENTRYPOINT ["eb"]
 CMD ["--version"]
